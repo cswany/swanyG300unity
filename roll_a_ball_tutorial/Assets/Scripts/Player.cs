@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class Player : MonoBehaviour {
+
+    AudioSource audioData;
 
     public float speed = 1;
 
@@ -14,6 +17,7 @@ public class Player : MonoBehaviour {
     private int count;
 
     void Start () {
+
       count = 0;
       SetCountText ();
       winText.text = "";
@@ -36,7 +40,7 @@ public class Player : MonoBehaviour {
         other.gameObject.SetActive (false);
         count = count + 1;
         SetCountText ();
-      }
+        }
   }
   void SetCountText() {
     countText.text = "Count: " + count.ToString ();
