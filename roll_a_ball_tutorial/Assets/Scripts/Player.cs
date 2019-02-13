@@ -16,15 +16,32 @@ public class Player : MonoBehaviour {
 
     private int count;
 
+    private bool isGrounded = true;
+
+    public float jumpPower = 3f;
+
     void Start () {
 
       count = 0;
       SetCountText ();
       winText.text = "";
     }
+    // If they're colliding with something, mark them as grounded
+    private void OnCollisionStay(Collision collision) {
+    	// Bumping into non-ground stuff doesn't count
+    	if (!collision.gameObject.CompareTag("floor")) {
+    		return;
+    	}
 
+    	isGrounded = true;
+    }
 	// move the player
 	private void FixedUpdate () {
+
+    if (Input.GetButton("Jump") && isGrounded) {
+		GetComponent<Rigidbody>().AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+		isGrounded = false;
+}
 
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
